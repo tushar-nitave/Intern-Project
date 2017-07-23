@@ -1,35 +1,32 @@
-from tkinter import *
+"""
+Version 1.0 without GUI.
+
+This project uses OpenCV libraries for identifying different objects trained and identifying minor defects.
+We have used only Open Source tools for development. Spyder(Python 3.6) as our primary IDE and Fedora 24.
+The project was completed within one month as part of our internship.
+
+"""
+
 import cv2
 import numpy as np
 import time
-#from tkinter import messagebox
-import ctypes
 import os
 from datetime import datetime
 from PIL import Image
-from appJar import gui
-app = gui()
 
 
-#temporary area
-
-
-
-
-
+#function in which object identification and fault detection is done.
 
 def callback():
     
-    
- 
-    #cascades
-    #intoduce the xml file of haar cascade
+    #importing the cascades of the object to identified. You can create your own cascade using openCV.
+	
     boxer_cascade=cv2.CascadeClassifier('C:\\Users\\tushar\\Desktop\\Mutha\\cascade_boxer.xml')
     hero_cascade=cv2.CascadeClassifier('C:\\Users\\tushar\\Desktop\\Mutha\\cascade_hero.xml')
     
 
 
-    #camera source 
+    #Camera source for your program. For using system camera use '0'.
     cam_source = 0
     
     cap = cv2.VideoCapture(cam_source)
@@ -41,7 +38,7 @@ def callback():
   #  print(string_i_want)
   
     termination_time_system1 = datetime.now()
-    termination_time_start = termination_time_system1.second % 7
+    termination_time_start = termination_time_system1.second % 5
     print ("start",termination_time_start)
     
     time.sleep(1)
@@ -50,7 +47,7 @@ def callback():
         
         
         termination_time_system2 = datetime.now()
-        termination_time_check = termination_time_system2.second % 7
+        termination_time_check = termination_time_system2.second % 5
         print ("current",termination_time_check)      
         select = 0
         
