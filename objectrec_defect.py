@@ -1,10 +1,12 @@
 """
 Version 1.0 without GUI.
 
+This program may need to be modified to run on Python 2.7. Some libraries(PIL) may not be installed.
+
 This project uses OpenCV libraries for identifying different objects trained and identifying minor defects.
 We have used only Open Source tools for development. Spyder(Python 3.6) as our primary IDE and Fedora 24.
 The project was completed within one month as part of our internship.
-Here 'Hero' and 'Boxer' are name of the objects we were supposed to identify. 
+Here 'Hero' and 'Boxer' are name of the objects we were supposed to identify. Whose images we cannot provide for testing.
 Please train and add your own object and change the name accordingly.
 
 """
@@ -114,10 +116,11 @@ def callback():
       app.infoBox("title", "NO object found")
      
   
-
+	
     img_rgb = cv2.imread('capture.jpg')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    #template of defects to be found are to be added here
+    
+	#templates of the object in which defect is to be found is present in this array. 
     template_array2 = ["temp1_2.jpg","ipadboxer.jpg"]
     
     if select == 1:
@@ -127,12 +130,18 @@ def callback():
         
     template=cv2.imread(item,2)
     w, h = template.shape[::-1]
+	
+	#algorithm to match actual job with template for identifying defects.
     res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
+	
+	#setting is the threshold is one important thing to do. 0.7~0.75 is optimal.
     threshold = 0.75
     loc = np.where( res >= threshold)
     counter1 = 0
     temp_ptx=999
     temp_pty=999
+	
+	#compare pixels colors at a particular location
     for pt in zip(*loc[::-1]):
             
         im = Image.open("C:\\Users\\tushar\\Desktop\\Mutha\\capture.jpg")
@@ -151,7 +160,8 @@ def callback():
             temp_pty = pty
             r, g, b = rgb_im.getpixel((ptx,pty))
             print ("RGB",r, g, b)
-            if r>200 and g<50 and b<50:
+			
+            if r>200 and g<50 and b<50:	#red colour range
                 continue
             else:
                     cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 1)
@@ -160,6 +170,8 @@ def callback():
     cv2.imwrite('res1.jpg',img_rgb)
     print ("first ",counter1) 
     cv2.waitKey()
+	
+	#display output
     if(select==1 and counter1==1):
         app.infoBox("title", "hero passed")
     if(select==2 and counter1==5):
