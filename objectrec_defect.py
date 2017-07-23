@@ -9,6 +9,8 @@ The project was completed within one month as part of our internship.
 Here 'Hero' and 'Boxer' are name of the objects we were supposed to identify. Whose images we cannot provide for testing.
 Please train and add your own object and change the name accordingly.
 
+We will be releasing next version soon with GUI.
+
 """
 
 import cv2
@@ -149,8 +151,7 @@ def callback():
             
         ptx = int(pt[0] + w - 2)
         pty = int(pt[1] + h )
-            
-            
+        #converts negative pixel difference 
         posx = abs(temp_ptx - ptx)
         posy = abs(temp_pty - pty)
             
@@ -164,8 +165,8 @@ def callback():
             if r>200 and g<50 and b<50:	#red colour range
                 continue
             else:
-                    cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 1)
-                    counter1 = counter1 +1
+                cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0,0,255), 1)
+                counter1 = counter1 +1
             
     cv2.imwrite('res1.jpg',img_rgb)
     print ("first ",counter1) 
